@@ -1,0 +1,14 @@
+{
+  "name": "duck-food-feeding-backend",
+  "version": "1.0.0",
+  "description": "Express.js application to serve APIs for duck food feeding application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thanigaiselvan Senthil Shanmugam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
