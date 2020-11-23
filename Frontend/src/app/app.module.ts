@@ -4,19 +4,29 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule, NgbTimepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbTimepickerModule,
+  NgbTypeaheadModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { FoodFeedFormComponent } from './food-feed-form/food-feed-form.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FeatherModule } from 'angular-feather';
+import { AlertCircle } from 'angular-feather/icons';
+
+const icons = {
+  AlertCircle,
+};
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    FoodFeedFormComponent
+    FoodFeedFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +36,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     NgbTimepickerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbTypeaheadModule,
+    FeatherModule.pick(icons),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

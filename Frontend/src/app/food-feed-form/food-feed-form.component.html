@@ -1,56 +1,267 @@
-<form>
-    <div class="form-group row">
-        <label for="colFormLabelSm" class="col-sm-2 col-form-label">Time when the ducks are fed</label>
-        <div class="col toggle-example">
-            <input type="time" class="form-control" id="colFormLabelSm">
-            <!-- <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true">
-            <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
-            <ngx-material-timepicker #toggleTimepicker (timeSet)='eventFired($event)'></ngx-material-timepicker> -->
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="typeahead-basic" class="col-sm-2 col-form-label">Kind of food</label>
-        <div class="col">
-            <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="typeahead-basic" class="col-sm-2 col-form-label">Food fed to ducks</label>
-        <div class="col">
-            <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="typeahead-basic" class="col-sm-2 col-form-label">Location</label>
-        <div class="col">
-            <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search" />
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Number of Ducks fed</label>
-        <div class="col">
-            <input type="number" class="form-control" id="inputEmail3">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Quantity fed</label>
-        <div class="col">
-            <input type="number" class="form-control" id="inputEmail3">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-2">Repeat Schedule</div>
-        <div class="col">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck1">
+<div class="container">
+  <div class="row">
+    <div
+      class="col-xl-8 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 shadow p-3 mb-5 bg-white rounded"
+    >
+      <div class="px-2">
+        <h1 class="display-4 py-2 text-truncate">Duck Feeding Habit</h1>
+        <form [formGroup]="foodForm">
+          <div class="form-group row">
+            <label for="feedTime" class="col col-form-label"
+              >Feeding Time</label
+            >
+            <div class="col toggle-example">
+              <input
+                type="time"
+                class="form-control"
+                id="feedTime"
+                [formControl]="foodForm.controls['feedTime']"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    foodForm.controls['feedTime'].invalid &&
+                    (foodForm.controls['feedTime'].dirty ||
+                      foodForm.controls['feedTime'].touched)
+                }"
+              />
+              <!-- <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true">
+                                          <ngx-material-timepicker-toggle [for]="toggleTimepicker"></ngx-material-timepicker-toggle>
+                                          <ngx-material-timepicker #toggleTimepicker (timeSet)='eventFired($event)'></ngx-material-timepicker> -->
+              <div
+                *ngIf="
+                  foodForm.controls['feedTime'].invalid &&
+                  (foodForm.controls['feedTime'].dirty ||
+                    foodForm.controls['feedTime'].touched)
+                "
+              >
+                <div *ngIf="foodForm.controls['feedTime'].errors.required">
+                  <small id="feedTimeHelp" class="form-text text-muted">
+                    Feed time is required.</small
+                  >
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
 
-</form>
+          <div class="form-group row">
+            <label for="typeahead-basic" class="col col-form-label">Food</label>
+            <div class="col">
+              <input
+                id="food"
+                [formControl]="foodForm.controls['food']"
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    foodForm.controls['food'].invalid &&
+                    (foodForm.controls['food'].dirty ||
+                      foodForm.controls['food'].touched)
+                }"
+                [ngbTypeahead]="search"
+              />
+              <div
+                *ngIf="
+                  foodForm.controls['food'].invalid &&
+                  (foodForm.controls['food'].dirty ||
+                    foodForm.controls['food'].touched)
+                "
+                class=""
+              >
+                <div *ngIf="foodForm.controls['food'].errors.required">
+                  <small id="foodHelp" class="form-text text-muted">
+                    Food is required.</small
+                  >
+                </div>
+                <div *ngIf="foodForm.controls['food'].errors.pattern">
+                  Food can contain alphabets only
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="typeahead-basic" class="col col-form-label"
+              >Food Type</label
+            >
+            <div class="col">
+              <input
+                id="foodType"
+                [formControl]="foodForm.controls['foodType']"
+                type="text"
+                class="form-control"
+                [ngbTypeahead]="search"
+                [ngClass]="{
+                  'is-invalid':
+                    foodForm.controls['foodType'].invalid &&
+                    (foodForm.controls['foodType'].dirty ||
+                      foodForm.controls['foodType'].touched)
+                }"
+              />
+              <div
+                *ngIf="
+                  foodForm.controls['foodType'].invalid &&
+                  (foodForm.controls['foodType'].dirty ||
+                    foodForm.controls['foodType'].touched)
+                "
+              >
+                <div *ngIf="foodForm.controls['foodType'].errors.required">
+                  <small id="foodTypeHelp" class="form-text text-muted"
+                    >Food type is required.</small
+                  >
+                </div>
+                <div *ngIf="foodForm.controls['foodType'].errors.pattern">
+                  <small id="foodTypeHelp" class="form-text text-muted"
+                    >Food can contain alphabets only</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="typeahead-basic" class="col col-form-label"
+              >Feeding Location</label
+            >
+            <div class="col">
+              <input
+                id="location"
+                [formControl]="foodForm.controls['location']"
+                type="text"
+                [ngbTypeahead]="search"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    foodForm.controls['location'].invalid &&
+                    (foodForm.controls['location'].dirty ||
+                      foodForm.controls['location'].touched)
+                }"
+              />
+              <div
+                *ngIf="
+                  foodForm.controls['location'].invalid &&
+                  (foodForm.controls['location'].dirty ||
+                    foodForm.controls['location'].touched)
+                "
+              >
+                <div *ngIf="foodForm.controls['location'].errors.required">
+                  <small id="locationHelp" class="form-text text-muted"
+                    >Location required.</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputEmail3" class="col col-form-label"
+              >No. of Ducks fed</label
+            >
+            <div class="col">
+              <input
+                id="totalDucks"
+                [formControl]="foodForm.controls['numberOfDucks']"
+                type="number"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    foodForm.controls['numberOfDucks'].invalid &&
+                    (foodForm.controls['numberOfDucks'].dirty ||
+                      foodForm.controls['numberOfDucks'].touched)
+                }"
+              />
+              <div
+                *ngIf="
+                  foodForm.controls['numberOfDucks'].invalid &&
+                  (foodForm.controls['numberOfDucks'].dirty ||
+                    foodForm.controls['numberOfDucks'].touched)
+                "
+              >
+                <div *ngIf="foodForm.controls['numberOfDucks'].errors.required">
+                  <small id="numberOfDucksHelp" class="form-text text-muted"
+                    >Total ducks fed required.</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="inputEmail3" class="col col-form-label"
+              >Quantity fed</label
+            >
+            <div class="col">
+              <div class="input-group">
+                <input
+                  id="foodQuantity"
+                  [formControl]="foodForm.controls['foodQuantity']"
+                  type="number"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      foodForm.controls['foodQuantity'].invalid &&
+                      (foodForm.controls['foodQuantity'].dirty ||
+                        foodForm.controls['foodQuantity'].touched)
+                  }"
+                />
+                <div class="input-group-append">
+                  <select
+                    class="form-control"
+                    id="QuantityType"
+                    [formControl]="foodForm.controls['quantityType']"
+                  >
+                    <option value="Kg">Kg</option>
+                    <option value="Pound">Pound</option>
+                    <option value="lbs">lbs</option>
+                    <option>gms</option>
+                    <option>Units</option>
+                  </select>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  foodForm.controls['foodQuantity'].invalid &&
+                  (foodForm.controls['foodQuantity'].dirty ||
+                    foodForm.controls['foodQuantity'].touched)
+                "
+              >
+                <div *ngIf="foodForm.controls['foodQuantity'].errors.required">
+                  <small id="numberOfDucksHelp" class="form-text text-muted"
+                    >Food Quantity required.</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col">Repeat Schedule</div>
+            <div class="col">
+              <div class="custom-control custom-switch">
+                <input
+                  class="custom-control-input"
+                  type="checkbox"
+                  [formControl]="foodForm.controls['repeatFood']"
+                  id="repeatFood"
+                />
+                <label class="custom-control-label" for="repeatFood"></label>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            (click)="submit()"
+            class="btn float-right btn-primary"
+          >
+            Submit
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-primary float-right mr-4"
+          >
+            Reset
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
