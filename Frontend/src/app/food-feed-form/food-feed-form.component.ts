@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FoodFeedService } from '../shared/services/food-feed.service';
 
 const states = [
   'Alabama',
@@ -74,26 +75,35 @@ export class FoodFeedFormComponent implements OnInit {
   time: any;
   public model: any;
   foodForm: FormGroup;
+  // uomType: any = 'Kg';
+  constructor(
+    private fb: FormBuilder,
+    private foodFeedService: FoodFeedService
+  ) {}
 
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    // prettier-ignore
+  initializeForm() {
     this.foodForm = this.fb.group({
-      foodType: [
+      foodTypeName: [
         '',
         [Validators.required, Validators.pattern('^[a-zA-Z\\s]*$')],
       ],
-      food: ['', [Validators.required, Validators.pattern('^[a-zA-Z\\s]*$')]],
-      location: ['', [Validators.required]],
-      numberOfDucks: ['', [Validators.required]],
-      foodQuantity: ['', [Validators.required]],
-      repeatFood: [],
+      foodName: [
+        '',
+        [Validators.required, Validators.pattern('^[a-zA-Z\\s]*$')],
+      ],
+      locationName: ['', [Validators.required]],
+      totalDucks: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
+      repeatSchedule: [],
       feedTime: ['', Validators.required],
-      quantityType: [],
+      uomType: ['Kg'],
     });
 
-    this.foodForm.controls['quantityType'].setValue('Kg');
+    //  this.foodForm.controls['uomType'].setValue('Kg');
+  }
+
+  ngOnInit(): void {
+    this.initializeForm();
   }
 
   eventFired($event) {
@@ -118,6 +128,21 @@ export class FoodFeedFormComponent implements OnInit {
       console.log('food invalid');
     } else {
       console.log(this.foodForm);
+      // this.foodForm.controls['uomType'].setValue(this.uomType);
+      this.foodFeedService
+        .addFoodFeed(this.foodForm.value)
+        .subscribe((data) => {
+          console.log(data);
+        });
     }
+  }
+
+  reset() {
+    //this.uomType = 'Kg';
+    //console.log(this.uomType);
+    //this.foodForm.reset(this.foodForm.value);
+    this.initializeForm();
+    //this.foodForm.controls['uomType'].setValue('Kg');
+    // this.initializeForm();
   }
 }

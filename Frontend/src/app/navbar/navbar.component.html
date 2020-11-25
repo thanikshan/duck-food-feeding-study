@@ -1,3 +1,12 @@
-<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <span class="navbar-brand mb-0 h1">Duck Food Feeding Study</span>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd">
+  <span class="navbar-brand mb-0 h1">Duck Food Feeding Study</span>
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item active">
+      <i-feather name="globe"></i-feather>
+      <select [(ngModel)]="language" (change)="changeLanguage()">
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+      </select>
+    </li>
+  </ul>
 </nav>

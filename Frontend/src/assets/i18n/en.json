@@ -1,0 +1,14 @@
+{
+  "form": {
+    "title": "Duck Feeding Habits",
+    "Feeding Time": "Feeding Time",
+    "Food": "Food",
+    "Food Type": "Food Type",
+    "Feeding Location": "Feeding Location",
+    "No. of Ducks fed": "No. of Ducks fed",
+    "Quantity fed": "Quantity fed",
+    "Repeat Schedule": "Repeat Schedule",
+    "submit": "Submit",
+    "reset": "Reset"
+  }
+}

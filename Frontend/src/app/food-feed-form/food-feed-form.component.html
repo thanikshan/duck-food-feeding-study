@@ -4,12 +4,12 @@
       class="col-xl-8 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 shadow p-3 mb-5 bg-white rounded"
     >
       <div class="px-2">
-        <h1 class="display-4 py-2 text-truncate">Duck Feeding Habit</h1>
+        <h1 class="display-6 py-2">{{ "form.title" | translate }}</h1>
         <form [formGroup]="foodForm">
           <div class="form-group row">
-            <label for="feedTime" class="col col-form-label"
-              >Feeding Time</label
-            >
+            <label for="feedTime" class="col col-form-label">{{
+              "form.Feeding Time" | translate
+            }}</label>
             <div class="col toggle-example">
               <input
                 type="time"
@@ -44,35 +44,37 @@
           </div>
 
           <div class="form-group row">
-            <label for="typeahead-basic" class="col col-form-label">Food</label>
+            <label for="typeahead-basic" class="col col-form-label">{{
+              "form.Food" | translate
+            }}</label>
             <div class="col">
               <input
                 id="food"
-                [formControl]="foodForm.controls['food']"
+                [formControl]="foodForm.controls['foodName']"
                 type="text"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    foodForm.controls['food'].invalid &&
-                    (foodForm.controls['food'].dirty ||
-                      foodForm.controls['food'].touched)
+                    foodForm.controls['foodName'].invalid &&
+                    (foodForm.controls['foodName'].dirty ||
+                      foodForm.controls['foodName'].touched)
                 }"
                 [ngbTypeahead]="search"
               />
               <div
                 *ngIf="
-                  foodForm.controls['food'].invalid &&
-                  (foodForm.controls['food'].dirty ||
-                    foodForm.controls['food'].touched)
+                  foodForm.controls['foodName'].invalid &&
+                  (foodForm.controls['foodName'].dirty ||
+                    foodForm.controls['foodName'].touched)
                 "
                 class=""
               >
-                <div *ngIf="foodForm.controls['food'].errors.required">
+                <div *ngIf="foodForm.controls['foodName'].errors.required">
                   <small id="foodHelp" class="form-text text-muted">
                     Food is required.</small
                   >
                 </div>
-                <div *ngIf="foodForm.controls['food'].errors.pattern">
+                <div *ngIf="foodForm.controls['foodName'].errors.pattern">
                   Food can contain alphabets only
                 </div>
               </div>
@@ -81,35 +83,35 @@
 
           <div class="form-group row">
             <label for="typeahead-basic" class="col col-form-label"
-              >Food Type</label
-            >
+              >{{ "form.Food Type" | translate }}
+            </label>
             <div class="col">
               <input
                 id="foodType"
-                [formControl]="foodForm.controls['foodType']"
+                [formControl]="foodForm.controls['foodTypeName']"
                 type="text"
                 class="form-control"
                 [ngbTypeahead]="search"
                 [ngClass]="{
                   'is-invalid':
-                    foodForm.controls['foodType'].invalid &&
-                    (foodForm.controls['foodType'].dirty ||
-                      foodForm.controls['foodType'].touched)
+                    foodForm.controls['foodTypeName'].invalid &&
+                    (foodForm.controls['foodTypeName'].dirty ||
+                      foodForm.controls['foodTypeName'].touched)
                 }"
               />
               <div
                 *ngIf="
-                  foodForm.controls['foodType'].invalid &&
-                  (foodForm.controls['foodType'].dirty ||
-                    foodForm.controls['foodType'].touched)
+                  foodForm.controls['foodTypeName'].invalid &&
+                  (foodForm.controls['foodTypeName'].dirty ||
+                    foodForm.controls['foodTypeName'].touched)
                 "
               >
-                <div *ngIf="foodForm.controls['foodType'].errors.required">
+                <div *ngIf="foodForm.controls['foodTypeName'].errors.required">
                   <small id="foodTypeHelp" class="form-text text-muted"
                     >Food type is required.</small
                   >
                 </div>
-                <div *ngIf="foodForm.controls['foodType'].errors.pattern">
+                <div *ngIf="foodForm.controls['foodTypeName'].errors.pattern">
                   <small id="foodTypeHelp" class="form-text text-muted"
                     >Food can contain alphabets only</small
                   >
@@ -119,31 +121,31 @@
           </div>
 
           <div class="form-group row">
-            <label for="typeahead-basic" class="col col-form-label"
-              >Feeding Location</label
-            >
+            <label for="typeahead-basic" class="col col-form-label">{{
+              "form.Feeding Location" | translate
+            }}</label>
             <div class="col">
               <input
                 id="location"
-                [formControl]="foodForm.controls['location']"
+                [formControl]="foodForm.controls['locationName']"
                 type="text"
                 [ngbTypeahead]="search"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    foodForm.controls['location'].invalid &&
-                    (foodForm.controls['location'].dirty ||
-                      foodForm.controls['location'].touched)
+                    foodForm.controls['locationName'].invalid &&
+                    (foodForm.controls['locationName'].dirty ||
+                      foodForm.controls['locationName'].touched)
                 }"
               />
               <div
                 *ngIf="
-                  foodForm.controls['location'].invalid &&
-                  (foodForm.controls['location'].dirty ||
-                    foodForm.controls['location'].touched)
+                  foodForm.controls['locationName'].invalid &&
+                  (foodForm.controls['locationName'].dirty ||
+                    foodForm.controls['locationName'].touched)
                 "
               >
-                <div *ngIf="foodForm.controls['location'].errors.required">
+                <div *ngIf="foodForm.controls['locationName'].errors.required">
                   <small id="locationHelp" class="form-text text-muted"
                     >Location required.</small
                   >
@@ -153,30 +155,30 @@
           </div>
 
           <div class="form-group row">
-            <label for="inputEmail3" class="col col-form-label"
-              >No. of Ducks fed</label
-            >
+            <label for="inputEmail3" class="col col-form-label">{{
+              "form.No of Ducks fed" | translate
+            }}</label>
             <div class="col">
               <input
                 id="totalDucks"
-                [formControl]="foodForm.controls['numberOfDucks']"
+                [formControl]="foodForm.controls['totalDucks']"
                 type="number"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    foodForm.controls['numberOfDucks'].invalid &&
-                    (foodForm.controls['numberOfDucks'].dirty ||
-                      foodForm.controls['numberOfDucks'].touched)
+                    foodForm.controls['totalDucks'].invalid &&
+                    (foodForm.controls['totalDucks'].dirty ||
+                      foodForm.controls['totalDucks'].touched)
                 }"
               />
               <div
                 *ngIf="
-                  foodForm.controls['numberOfDucks'].invalid &&
-                  (foodForm.controls['numberOfDucks'].dirty ||
-                    foodForm.controls['numberOfDucks'].touched)
+                  foodForm.controls['totalDucks'].invalid &&
+                  (foodForm.controls['totalDucks'].dirty ||
+                    foodForm.controls['totalDucks'].touched)
                 "
               >
-                <div *ngIf="foodForm.controls['numberOfDucks'].errors.required">
+                <div *ngIf="foodForm.controls['totalDucks'].errors.required">
                   <small id="numberOfDucksHelp" class="form-text text-muted"
                     >Total ducks fed required.</small
                   >
@@ -186,28 +188,28 @@
           </div>
 
           <div class="form-group row">
-            <label for="inputEmail3" class="col col-form-label"
-              >Quantity fed</label
-            >
+            <label for="inputEmail3" class="col col-form-label">{{
+              "form.Quantity fed" | translate
+            }}</label>
             <div class="col">
               <div class="input-group">
                 <input
                   id="foodQuantity"
-                  [formControl]="foodForm.controls['foodQuantity']"
+                  [formControl]="foodForm.controls['quantity']"
                   type="number"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      foodForm.controls['foodQuantity'].invalid &&
-                      (foodForm.controls['foodQuantity'].dirty ||
-                        foodForm.controls['foodQuantity'].touched)
+                      foodForm.controls['quantity'].invalid &&
+                      (foodForm.controls['quantity'].dirty ||
+                        foodForm.controls['quantity'].touched)
                   }"
                 />
                 <div class="input-group-append">
                   <select
                     class="form-control"
                     id="QuantityType"
-                    [formControl]="foodForm.controls['quantityType']"
+                    [formControl]="foodForm.controls['uomType']"
                   >
                     <option value="Kg">Kg</option>
                     <option value="Pound">Pound</option>
@@ -219,12 +221,12 @@
               </div>
               <div
                 *ngIf="
-                  foodForm.controls['foodQuantity'].invalid &&
-                  (foodForm.controls['foodQuantity'].dirty ||
-                    foodForm.controls['foodQuantity'].touched)
+                  foodForm.controls['quantity'].invalid &&
+                  (foodForm.controls['quantity'].dirty ||
+                    foodForm.controls['quantity'].touched)
                 "
               >
-                <div *ngIf="foodForm.controls['foodQuantity'].errors.required">
+                <div *ngIf="foodForm.controls['quantity'].errors.required">
                   <small id="numberOfDucksHelp" class="form-text text-muted"
                     >Food Quantity required.</small
                   >
@@ -234,13 +236,13 @@
           </div>
 
           <div class="form-group row">
-            <div class="col">Repeat Schedule</div>
+            <div class="col">{{ "form.Repeat Schedule" | translate }}</div>
             <div class="col">
               <div class="custom-control custom-switch">
                 <input
                   class="custom-control-input"
                   type="checkbox"
-                  [formControl]="foodForm.controls['repeatFood']"
+                  [formControl]="foodForm.controls['repeatSchedule']"
                   id="repeatFood"
                 />
                 <label class="custom-control-label" for="repeatFood"></label>
@@ -252,13 +254,14 @@
             (click)="submit()"
             class="btn float-right btn-primary"
           >
-            Submit
+            {{ "form.submit" | translate }}
           </button>
           <button
             type="button"
             class="btn btn-outline-primary float-right mr-4"
+            (click)="reset()"
           >
-            Reset
+            <span>{{ "form.reset" | translate }}</span>
           </button>
         </form>
       </div>

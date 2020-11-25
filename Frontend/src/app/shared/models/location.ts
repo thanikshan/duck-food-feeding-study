@@ -1,0 +1,4 @@
+interface Location {
+  id;
+  locationName;
+}

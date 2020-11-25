@@ -1,0 +1,14 @@
+{
+  "form": {
+    "title": "Habit de l'alimentation du canard",
+    "Feeding Time": "Temps d'alimentation",
+    "Food": "Nourriture",
+    "Food Type": "Type de nourriture",
+    "Feeding Location": "Lieu d'alimentation",
+    "No of Ducks fed": "De canards nourris",
+    "Quantity fed": "Quantité alimentée",
+    "Repeat Schedule": "Répéter le programme",
+    "submit": "Soumettre",
+    "reset": "Réinitialiser"
+  }
+}
