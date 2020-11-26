@@ -26,5 +26,5 @@ app.use(cors());
 require("./app/routes/route.js")(app);
 
 app.listen(port, "0.0.0.0", () =>
-  console.log(`LaptopOnRent app listening on port ${port}!`)
+  console.log(`Server listening on port ${port}!`)
 );
