@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const sequelize = require("./dbConfig");
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -26,5 +26,5 @@ app.use(cors());
 require("./app/routes/route.js")(app);
 
 app.listen(port, "0.0.0.0", () =>
-  console.log(`Server listening on port ${port}!`)
+  console.log(`LaptopOnRent app listening on port ${port}!`)
 );

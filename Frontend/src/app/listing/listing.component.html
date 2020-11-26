@@ -1,0 +1,22 @@
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Food</th>
+        <th scope="col">Quantity (UOM)</th>
+        <th scope="col">No.of Ducks</th>
+        <th scope="col">Location</th>
+        <th scope="col">Feed Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let feed of feedList; index as i">
+        <td>{{ feed.food.foodName }}</td>
+        <td>{{ feed.quanity }} ( {{ feed.uom.uomType }} )</td>
+        <td>{{ feed.totalDucks }}</td>
+        <td>{{ feed.location.locationName }}</td>
+        <td>{{ feed.feedTime }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

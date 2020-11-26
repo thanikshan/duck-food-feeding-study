@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { Food } from '../models/food';
+
 @Injectable({
   providedIn: 'root',
 })
-export class FoodFeedService {
-  private apiUrl = environment.apiUrl + '/feedDetails';
+export class FoodService {
+  private apiUrl = environment.apiUrl + '/food';
   constructor(private http: HttpClient) {}
 
-  addFoodFeed(data): Observable<any> {
+  getFood(): Observable<Food[]> {
     return this.http
-      .post<any>(this.apiUrl, data)
+      .get<Food[]>(this.apiUrl)
       .pipe(catchError(this.handleError));
   }
 

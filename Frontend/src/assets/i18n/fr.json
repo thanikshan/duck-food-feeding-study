@@ -10,5 +10,14 @@
     "Repeat Schedule": "Répéter le programme",
     "submit": "Soumettre",
     "reset": "Réinitialiser"
+  },
+  "error": {
+    "Feed time is required": "Le temps d'alimentation est requis",
+    "Food is required": "Nourriture requise",
+    "Food can contain alphabets only": "Les aliments ne peuvent contenir que des alphabets",
+    "Food type is required": "Le type d'aliment est obligatoire",
+    "Location required": "Emplacement requis",
+    "Total ducks fed required": "Nombre total de canards nourris requis",
+    "Food Quantity required": "Quantité de nourriture requise"
   }
 }

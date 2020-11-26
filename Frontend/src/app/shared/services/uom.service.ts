@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { UOM } from '../models/uom';
+
 @Injectable({
   providedIn: 'root',
 })
-export class FoodFeedService {
-  private apiUrl = environment.apiUrl + '/feedDetails';
+export class UomService {
+  private apiUrl = environment.apiUrl + '/uom';
   constructor(private http: HttpClient) {}
 
-  addFoodFeed(data): Observable<any> {
-    return this.http
-      .post<any>(this.apiUrl, data)
-      .pipe(catchError(this.handleError));
+  getUom(): Observable<UOM[]> {
+    return this.http.get<UOM[]>(this.apiUrl).pipe(catchError(this.handleError));
   }
 
   private handleError(err) {

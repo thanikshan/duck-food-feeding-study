@@ -2,69 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { FoodType } from '../shared/models/foodType';
+import { Location } from '../shared/models/location';
 import { FoodFeedService } from '../shared/services/food-feed.service';
-
-const states = [
-  'Alabama',
-  'Alaska',
-  'American Samoa',
-  'Arizona',
-  'Arkansas',
-  'California',
-  'Colorado',
-  'Connecticut',
-  'Delaware',
-  'District Of Columbia',
-  'Federated States Of Micronesia',
-  'Florida',
-  'Georgia',
-  'Guam',
-  'Hawaii',
-  'Idaho',
-  'Illinois',
-  'Indiana',
-  'Iowa',
-  'Kansas',
-  'Kentucky',
-  'Louisiana',
-  'Maine',
-  'Marshall Islands',
-  'Maryland',
-  'Massachusetts',
-  'Michigan',
-  'Minnesota',
-  'Mississippi',
-  'Missouri',
-  'Montana',
-  'Nebraska',
-  'Nevada',
-  'New Hampshire',
-  'New Jersey',
-  'New Mexico',
-  'New York',
-  'North Carolina',
-  'North Dakota',
-  'Northern Mariana Islands',
-  'Ohio',
-  'Oklahoma',
-  'Oregon',
-  'Palau',
-  'Pennsylvania',
-  'Puerto Rico',
-  'Rhode Island',
-  'South Carolina',
-  'South Dakota',
-  'Tennessee',
-  'Texas',
-  'Utah',
-  'Vermont',
-  'Virgin Islands',
-  'Virginia',
-  'Washington',
-  'West Virginia',
-  'Wisconsin',
-  'Wyoming',
-];
+import { FoodTypeService } from '../shared/services/food-type.service';
+import { FoodService } from '../shared/services/food.service';
+import { LocationService } from '../shared/services/location.service';
+import { UomService } from '../shared/services/uom.service';
+import { Food } from '../shared/models/food';
+import { UOM } from '../shared/models/uom';
 
 @Component({
   selector: 'app-food-feed-form',
@@ -75,11 +21,32 @@ export class FoodFeedFormComponent implements OnInit {
   time: any;
   public model: any;
   foodForm: FormGroup;
+  locations: Location[] = [];
+  foodTypes: FoodType[] = [];
+  food: Food[] = [];
+  uom: UOM[];
+  showToast: boolean = false;
   // uomType: any = 'Kg';
   constructor(
     private fb: FormBuilder,
-    private foodFeedService: FoodFeedService
-  ) {}
+    private foodFeedService: FoodFeedService,
+    private locationService: LocationService,
+    private foodTypeService: FoodTypeService,
+    private foodService: FoodService,
+    private uomService: UomService
+  ) {
+    this.autoSuggestionCalls();
+    this.uomService.getUom().subscribe((data) => {
+      this.uom = data;
+      console.log(this.uom);
+    });
+  }
+
+  autoSuggestionCalls() {
+    this.getLocations();
+    this.getFoodTypes();
+    this.getFood();
+  }
 
   initializeForm() {
     this.foodForm = this.fb.group({
@@ -96,10 +63,10 @@ export class FoodFeedFormComponent implements OnInit {
       quantity: ['', [Validators.required]],
       repeatSchedule: [],
       feedTime: ['', Validators.required],
-      uomType: ['Kg'],
+      uomType: ['KG'],
     });
 
-    //  this.foodForm.controls['uomType'].setValue('Kg');
+    //this.foodForm.controls['uomType'].setValue('KG');
   }
 
   ngOnInit(): void {
@@ -110,39 +77,107 @@ export class FoodFeedFormComponent implements OnInit {
     console.log($event);
   }
 
-  search = (text$: Observable<string>) =>
+  locationTypeAhead = (text$: Observable<string>) =>
     text$.pipe(
       debounceTime(200),
       distinctUntilChanged(),
       map((term) =>
         term.length < 2
           ? []
-          : states
-              .filter((v) => v.toLowerCase().indexOf(term.toLowerCase()) > -1)
+          : this.locations
+              .filter(
+                (location) =>
+                  location.locationName
+                    .toLowerCase()
+                    .indexOf(term.toLowerCase()) > -1
+              )
+              .map((location) => location.locationName)
               .slice(0, 10)
       )
     );
+
+  foodTypeTypeAhead = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map((term) =>
+        term.length < 2
+          ? []
+          : this.foodTypes
+              .filter(
+                (foodType) =>
+                  foodType.foodTypeName
+                    .toLowerCase()
+                    .indexOf(term.toLowerCase()) > -1
+              )
+              .map((foodType) => foodType.foodTypeName)
+              .slice(0, 10)
+      )
+    );
+
+  foodTypeAhead = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map((term) =>
+        term.length < 2
+          ? []
+          : this.food
+              .filter(
+                (food) =>
+                  food.foodName.toLowerCase().indexOf(term.toLowerCase()) > -1
+              )
+              .map((food) => food.foodName)
+              .slice(0, 10)
+      )
+    );
+
+  getLocations() {
+    this.locationService.getLocations().subscribe((data) => {
+      this.locations = data;
+      console.log(this.locations);
+    });
+  }
+
+  getFoodTypes() {
+    this.foodTypeService.getFoodTypes().subscribe((data) => {
+      this.foodTypes = data;
+      console.log(this.foodTypes);
+    });
+  }
+
+  getFood() {
+    this.foodService.getFood().subscribe((data) => {
+      this.food = data;
+      console.log(this.food);
+    });
+  }
 
   submit() {
     if (this.foodForm.invalid) {
       console.log('food invalid');
     } else {
-      console.log(this.foodForm);
-      // this.foodForm.controls['uomType'].setValue(this.uomType);
+      var locTime = this.foodForm.controls['feedTime'].value;
+      var date = new Date();
+      date.setHours(locTime.split(':')[0], locTime.split(':')[1]);
+      this.foodForm.controls['feedTime'].setValue(
+        date.getUTCHours() + ':' + date.getUTCMinutes()
+      );
+      console.log(this.foodForm.controls['feedTime'].value);
       this.foodFeedService
         .addFoodFeed(this.foodForm.value)
         .subscribe((data) => {
           console.log(data);
+          this.showToast = true;
+          this.autoSuggestionCalls();
+          this.reset();
         });
     }
   }
 
   reset() {
-    //this.uomType = 'Kg';
-    //console.log(this.uomType);
-    //this.foodForm.reset(this.foodForm.value);
+    //this.showToast = true;
     this.initializeForm();
-    //this.foodForm.controls['uomType'].setValue('Kg');
-    // this.initializeForm();
+    //  this.foodForm.controls['uomType'].setValue('KG');
   }
 }

@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { Location } from '../models/location';
 @Injectable({
   providedIn: 'root',
 })
-export class FoodFeedService {
-  private apiUrl = environment.apiUrl + '/feedDetails';
+export class LocationService {
+  private apiUrl = environment.apiUrl + '/location';
   constructor(private http: HttpClient) {}
 
-  addFoodFeed(data): Observable<any> {
+  getLocations(): Observable<Location[]> {
     return this.http
-      .post<any>(this.apiUrl, data)
+      .get<Location[]>(this.apiUrl)
       .pipe(catchError(this.handleError));
   }
 

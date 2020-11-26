@@ -4,9 +4,8 @@
   "description": "Express.js application to serve APIs for duck food feeding application",
   "main": "index.js",
   "scripts": {
-    "test": "jest --config ./jest.config.js --forceExit --coverage",
-    "start": "node app.js",
-    "deploy": "serverless deploy"
+    "test": "jest --detectOpenHandles --config ./jest.config.js --forceExit --coverage",
+    "start": "node app.js"
   },
   "author": "Thanigaiselvan Senthil Shanmugam",
   "license": "ISC",
@@ -14,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
+    "node-cron": "^2.0.3",
     "sequelize": "^6.3.5",
     "aws-serverless-express": "^3.3.8",
     "serverless": "^1.76.1"

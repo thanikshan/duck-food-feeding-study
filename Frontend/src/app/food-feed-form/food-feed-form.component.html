@@ -1,7 +1,10 @@
 <div class="container">
+  <ngb-toast header="I can be closed!" *ngIf="showToast" [autohide]="false">
+    <!-- Content here -->
+  </ngb-toast>
   <div class="row">
     <div
-      class="col-xl-8 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 shadow p-3 mb-5 bg-white rounded"
+      class="col-xl-8 col-lg-8 col-md-8 col-sm-10 mx-auto form p-4 shadow p-3 mb-5 bg-white rounded"
     >
       <div class="px-2">
         <h1 class="display-6 py-2">{{ "form.title" | translate }}</h1>
@@ -10,7 +13,7 @@
             <label for="feedTime" class="col col-form-label">{{
               "form.Feeding Time" | translate
             }}</label>
-            <div class="col toggle-example">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10 toggle-example">
               <input
                 type="time"
                 class="form-control"
@@ -36,8 +39,8 @@
               >
                 <div *ngIf="foodForm.controls['feedTime'].errors.required">
                   <small id="feedTimeHelp" class="form-text text-muted">
-                    Feed time is required.</small
-                  >
+                    {{ "error.Feed time is required" | translate }}
+                  </small>
                 </div>
               </div>
             </div>
@@ -47,7 +50,7 @@
             <label for="typeahead-basic" class="col col-form-label">{{
               "form.Food" | translate
             }}</label>
-            <div class="col">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <input
                 id="food"
                 [formControl]="foodForm.controls['foodName']"
@@ -59,7 +62,7 @@
                     (foodForm.controls['foodName'].dirty ||
                       foodForm.controls['foodName'].touched)
                 }"
-                [ngbTypeahead]="search"
+                [ngbTypeahead]="foodTypeAhead"
               />
               <div
                 *ngIf="
@@ -71,11 +74,11 @@
               >
                 <div *ngIf="foodForm.controls['foodName'].errors.required">
                   <small id="foodHelp" class="form-text text-muted">
-                    Food is required.</small
+                    {{ "error.Food is required" | translate }}.</small
                   >
                 </div>
                 <div *ngIf="foodForm.controls['foodName'].errors.pattern">
-                  Food can contain alphabets only
+                  {{ "error.Food can contain alphabets only" | translate }}.
                 </div>
               </div>
             </div>
@@ -85,13 +88,13 @@
             <label for="typeahead-basic" class="col col-form-label"
               >{{ "form.Food Type" | translate }}
             </label>
-            <div class="col">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <input
                 id="foodType"
                 [formControl]="foodForm.controls['foodTypeName']"
                 type="text"
                 class="form-control"
-                [ngbTypeahead]="search"
+                [ngbTypeahead]="foodTypeTypeAhead"
                 [ngClass]="{
                   'is-invalid':
                     foodForm.controls['foodTypeName'].invalid &&
@@ -108,13 +111,13 @@
               >
                 <div *ngIf="foodForm.controls['foodTypeName'].errors.required">
                   <small id="foodTypeHelp" class="form-text text-muted"
-                    >Food type is required.</small
+                    >{{ "error.Food type is required" | translate }}.</small
                   >
                 </div>
                 <div *ngIf="foodForm.controls['foodTypeName'].errors.pattern">
-                  <small id="foodTypeHelp" class="form-text text-muted"
-                    >Food can contain alphabets only</small
-                  >
+                  <small id="foodTypeHelp" class="form-text text-muted">{{
+                    "error.Food can contain alphabets only" | translate
+                  }}</small>
                 </div>
               </div>
             </div>
@@ -124,12 +127,12 @@
             <label for="typeahead-basic" class="col col-form-label">{{
               "form.Feeding Location" | translate
             }}</label>
-            <div class="col">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <input
                 id="location"
                 [formControl]="foodForm.controls['locationName']"
                 type="text"
-                [ngbTypeahead]="search"
+                [ngbTypeahead]="locationTypeAhead"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
@@ -147,7 +150,7 @@
               >
                 <div *ngIf="foodForm.controls['locationName'].errors.required">
                   <small id="locationHelp" class="form-text text-muted"
-                    >Location required.</small
+                    >{{ "error.Location required" | translate }}.</small
                   >
                 </div>
               </div>
@@ -158,7 +161,7 @@
             <label for="inputEmail3" class="col col-form-label">{{
               "form.No of Ducks fed" | translate
             }}</label>
-            <div class="col">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <input
                 id="totalDucks"
                 [formControl]="foodForm.controls['totalDucks']"
@@ -180,7 +183,7 @@
               >
                 <div *ngIf="foodForm.controls['totalDucks'].errors.required">
                   <small id="numberOfDucksHelp" class="form-text text-muted"
-                    >Total ducks fed required.</small
+                    >{{ "error.Total ducks fed required" | translate }}.</small
                   >
                 </div>
               </div>
@@ -191,7 +194,7 @@
             <label for="inputEmail3" class="col col-form-label">{{
               "form.Quantity fed" | translate
             }}</label>
-            <div class="col">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <div class="input-group">
                 <input
                   id="foodQuantity"
@@ -211,11 +214,9 @@
                     id="QuantityType"
                     [formControl]="foodForm.controls['uomType']"
                   >
-                    <option value="Kg">Kg</option>
-                    <option value="Pound">Pound</option>
-                    <option value="lbs">lbs</option>
-                    <option>gms</option>
-                    <option>Units</option>
+                    <option *ngFor="let u of uom" value="{{ u.uomType }}">
+                      {{ u.uomType }}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -228,7 +229,7 @@
               >
                 <div *ngIf="foodForm.controls['quantity'].errors.required">
                   <small id="numberOfDucksHelp" class="form-text text-muted"
-                    >Food Quantity required.</small
+                    >{{ "error.Food Quantity required" | translate }}.</small
                   >
                 </div>
               </div>
@@ -236,8 +237,10 @@
           </div>
 
           <div class="form-group row">
-            <div class="col">{{ "form.Repeat Schedule" | translate }}</div>
-            <div class="col">
+            <label for="inputEmail3" class="col col-form-label">
+              {{ "form.Repeat Schedule" | translate }}
+            </label>
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-10">
               <div class="custom-control custom-switch">
                 <input
                   class="custom-control-input"

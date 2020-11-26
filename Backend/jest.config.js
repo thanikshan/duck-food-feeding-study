@@ -1,4 +1,4 @@
 module.exports = {
     testEnvironment: "node",
-    coveragePathIgnorePatterns: ["./initialize"]
+    coveragePathIgnorePatterns: ["./app/service", "./app/test/initializeTest"]
 }

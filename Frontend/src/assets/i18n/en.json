@@ -5,10 +5,19 @@
     "Food": "Food",
     "Food Type": "Food Type",
     "Feeding Location": "Feeding Location",
-    "No. of Ducks fed": "No. of Ducks fed",
+    "No of Ducks fed": "No. of Ducks fed",
     "Quantity fed": "Quantity fed",
     "Repeat Schedule": "Repeat Schedule",
     "submit": "Submit",
     "reset": "Reset"
+  },
+  "error": {
+    "Feed time is required": "Feed time is required",
+    "Food is required": "Food is required",
+    "Food can contain alphabets only": "Food can contain alphabets only",
+    "Food type is required": "Food type is required",
+    "Location required": "Location required",
+    "Total ducks fed required": "Total ducks fed required",
+    "Food Quantity required": "Food Quantity required"
   }
 }

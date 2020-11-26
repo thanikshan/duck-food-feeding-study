@@ -1,5 +1,6 @@
 const { FeedDetails, Location, FoodType, Food, UOM } = require("../models");
 const { Sequelize } = require("sequelize");
+const { scheduleFeed } = require("../service/scheduler.service");
 
 findOrAddFood = async (req, res) => {
   const foodTypeData = await FoodType.findOrCreate({
@@ -33,6 +34,10 @@ findOrAddUOM = async (req, res) => {
   return uomData[0].id;
 };
 
+insertFeedDetails = async (data) => {
+  await FeedDetails.create(data);
+}
+
 exports.getAllFoodType = async (req, res) => {
   try {
     const foodTypes = await FoodType.findAll({
@@ -42,7 +47,7 @@ exports.getAllFoodType = async (req, res) => {
           "foodTypeName",
         ],
       ],
-    })
+    });
     res.status(200).json(foodTypes);
 
   } catch (error) {
@@ -112,7 +117,7 @@ exports.addFeedDetails = async (req, res) => {
     const foodId = await findOrAddFood(req, res);
     const locationId = await findOrAddLocation(req, res);
     const uomId = await findOrAddUOM(req, res);
-    const foodData = await FeedDetails.create({
+    const data = {
       foodId: foodId,
       locationId: locationId,
       uomId: uomId,
@@ -120,7 +125,13 @@ exports.addFeedDetails = async (req, res) => {
       totalDucks: req.body.totalDucks,
       feedTime: req.body.feedTime,
       repeatSchedule: req.body.repeatSchedule,
-    });
+    }
+    await insertFeedDetails(data);
+    if (req.body.repeatSchedule) {
+      data.repeatSchedule = false;
+      const time = req.body.feedTime.split(':');
+      scheduleFeed(time[1], time[0], insertFeedDetails, data);
+    }
     res.status(200).json({ status: "success" });
   } catch (error) {
     res.status(500).json({ status: "failure" });

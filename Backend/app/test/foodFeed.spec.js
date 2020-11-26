@@ -26,25 +26,25 @@ describe("Testing auto suggestion controllers", () => {
                 return [{ "locationName": "Spring garden Park", "id": 1 }]
             });
     });
-    it("testing foodtype controller", async() => {
+    it("testing foodtype controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllFoodType({}, resp);
         expect(resp.status).toHaveBeenCalledWith(200);
         expect(resp.json).toHaveBeenCalledWith([{ "foodTypeName": "Fish", "id": 1 }]);
     });
-    it("testing food controller", async() => {
+    it("testing food controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllFood({}, resp);
         expect(resp.status).toHaveBeenCalledWith(200);
         expect(resp.json).toHaveBeenCalledWith([{ "foodName": "Cereal", "id": 1 }]);
     });
-    it("testing location controller", async() => {
+    it("testing location controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllLocation({}, resp);
         expect(resp.status).toHaveBeenCalledWith(200);
         expect(resp.json).toHaveBeenCalledWith([{ "locationName": "Spring garden Park", "id": 1 }]);
     });
-    it("testing uom controller", async() => {
+    it("testing uom controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllUOM({}, resp);
         expect(resp.status).toHaveBeenCalledWith(200);
@@ -75,22 +75,22 @@ describe("Testing auto suggestion controllers error", () => {
                 throw new Error("error");
             });
     });
-    it("testing foodtype controller", async() => {
+    it("testing foodtype controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllFoodType({}, resp);
         expect(resp.status).toHaveBeenCalledWith(500);
     });
-    it("testing food controller", async() => {
+    it("testing food controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllFood({}, resp);
         expect(resp.status).toHaveBeenCalledWith(500);
     });
-    it("testing location controller", async() => {
+    it("testing location controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllLocation({}, resp);
         expect(resp.status).toHaveBeenCalledWith(500);
     });
-    it("testing uom controller", async() => {
+    it("testing uom controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllUOM({}, resp);
         expect(resp.status).toHaveBeenCalledWith(500);
@@ -113,7 +113,7 @@ describe("Testing get controllers", () => {
                 }]
             });
     });
-    it("testing feeddetails controller", async() => {
+    it("testing feeddetails controller", async () => {
         const resp = mockResponse()
         await foodFeed.getAllFeedDetails({}, resp);
         expect(resp.status).toHaveBeenCalledWith(200);
@@ -159,7 +159,7 @@ describe("Testing POST controllers", () => {
                 return { "id": 1 }
             });
     });
-    it("testing feed data controller without repeat", async() => {
+    it("testing feed data controller without repeat", async () => {
         const req = mockRequest({
             "locationName": "Some Park",
             "food": "Cereal",
