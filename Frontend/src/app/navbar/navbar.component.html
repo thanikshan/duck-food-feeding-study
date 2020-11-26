@@ -26,39 +26,42 @@
 </nav> -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <span class="navbar-brand mb-0 h1">Duck Food Feeding Study</span>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+    <span class="navbar-brand mb-0 h1">Duck Food Feeding Study</span>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <button
-          type="button"
-          class="btn btn-outline-primary"
-          routerLink="/listing"
-        >
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item mr-2 mb-2">
+                <button type="button" class="btn btn-outline-primary" routerLink="/">
+          Data Entry
+        </button>
+            </li>
+            <li class="nav-item mr-2 mb-2">
+                <button type="button" class="btn btn-outline-primary" routerLink="/listing">
           Current Data
         </button>
-      </li>
-      <li class="nav-item">
-        <!-- <i-feather name="globe"></i-feather> -->
-        <select [(ngModel)]="language" (change)="changeLanguage()">
+            </li>
+            <li class="nav-item mr-2 mb-2">
+                <!-- <i-feather name="globe"></i-feather> -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{language | uppercase}}
+                  </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" (click)="changeLanguage('en')">EN</a>
+                        <a class="dropdown-item" href="#" (click)="changeLanguage('fr')">FR</a>
+
+                    </div>
+                </div>
+                <!-- <select [(ngModel)]="language" (change)="changeLanguage()">
           <option value="en">EN</option>
           <option value="fr">FR</option>
-        </select>
-      </li>
-    </ul>
-    <!-- <form class="form-inline my-2 my-lg-0">
+        </select> -->
+            </li>
+        </ul>
+        <!-- <form class="form-inline my-2 my-lg-0">
       <input
         class="form-control mr-sm-2"
         type="text"
@@ -69,5 +72,5 @@
         Search
       </button>
     </form> -->
-  </div>
+    </div>
 </nav>

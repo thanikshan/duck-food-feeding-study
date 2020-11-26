@@ -1,7 +1,4 @@
 <div class="container">
-  <ngb-toast header="I can be closed!" *ngIf="showToast" [autohide]="false">
-    <!-- Content here -->
-  </ngb-toast>
   <div class="row">
     <div
       class="col-xl-8 col-lg-8 col-md-8 col-sm-10 mx-auto form p-4 shadow p-3 mb-5 bg-white rounded"
@@ -24,7 +21,8 @@
                   'is-invalid':
                     foodForm.controls['feedTime'].invalid &&
                     (foodForm.controls['feedTime'].dirty ||
-                      foodForm.controls['feedTime'].touched)
+                      foodForm.controls['feedTime'].touched ||
+                      showError)
                 }"
               />
               <!-- <input [ngxTimepicker]="toggleTimepicker" [disableClick]="true">
@@ -34,7 +32,8 @@
                 *ngIf="
                   foodForm.controls['feedTime'].invalid &&
                   (foodForm.controls['feedTime'].dirty ||
-                    foodForm.controls['feedTime'].touched)
+                    foodForm.controls['feedTime'].touched ||
+                    showError)
                 "
               >
                 <div *ngIf="foodForm.controls['feedTime'].errors.required">
@@ -60,7 +59,8 @@
                   'is-invalid':
                     foodForm.controls['foodName'].invalid &&
                     (foodForm.controls['foodName'].dirty ||
-                      foodForm.controls['foodName'].touched)
+                      foodForm.controls['foodName'].touched ||
+                      showError)
                 }"
                 [ngbTypeahead]="foodTypeAhead"
               />
@@ -68,7 +68,8 @@
                 *ngIf="
                   foodForm.controls['foodName'].invalid &&
                   (foodForm.controls['foodName'].dirty ||
-                    foodForm.controls['foodName'].touched)
+                    foodForm.controls['foodName'].touched ||
+                    showError)
                 "
                 class=""
               >
@@ -99,14 +100,16 @@
                   'is-invalid':
                     foodForm.controls['foodTypeName'].invalid &&
                     (foodForm.controls['foodTypeName'].dirty ||
-                      foodForm.controls['foodTypeName'].touched)
+                      foodForm.controls['foodTypeName'].touched ||
+                      showError)
                 }"
               />
               <div
                 *ngIf="
                   foodForm.controls['foodTypeName'].invalid &&
                   (foodForm.controls['foodTypeName'].dirty ||
-                    foodForm.controls['foodTypeName'].touched)
+                    foodForm.controls['foodTypeName'].touched ||
+                    showError)
                 "
               >
                 <div *ngIf="foodForm.controls['foodTypeName'].errors.required">
@@ -138,14 +141,16 @@
                   'is-invalid':
                     foodForm.controls['locationName'].invalid &&
                     (foodForm.controls['locationName'].dirty ||
-                      foodForm.controls['locationName'].touched)
+                      foodForm.controls['locationName'].touched ||
+                      showError)
                 }"
               />
               <div
                 *ngIf="
                   foodForm.controls['locationName'].invalid &&
                   (foodForm.controls['locationName'].dirty ||
-                    foodForm.controls['locationName'].touched)
+                    foodForm.controls['locationName'].touched ||
+                    showError)
                 "
               >
                 <div *ngIf="foodForm.controls['locationName'].errors.required">
@@ -171,14 +176,16 @@
                   'is-invalid':
                     foodForm.controls['totalDucks'].invalid &&
                     (foodForm.controls['totalDucks'].dirty ||
-                      foodForm.controls['totalDucks'].touched)
+                      foodForm.controls['totalDucks'].touched ||
+                      showError)
                 }"
               />
               <div
                 *ngIf="
                   foodForm.controls['totalDucks'].invalid &&
                   (foodForm.controls['totalDucks'].dirty ||
-                    foodForm.controls['totalDucks'].touched)
+                    foodForm.controls['totalDucks'].touched ||
+                    showError)
                 "
               >
                 <div *ngIf="foodForm.controls['totalDucks'].errors.required">
@@ -205,7 +212,8 @@
                     'is-invalid':
                       foodForm.controls['quantity'].invalid &&
                       (foodForm.controls['quantity'].dirty ||
-                        foodForm.controls['quantity'].touched)
+                        foodForm.controls['quantity'].touched ||
+                        showError)
                   }"
                 />
                 <div class="input-group-append">
@@ -224,7 +232,8 @@
                 *ngIf="
                   foodForm.controls['quantity'].invalid &&
                   (foodForm.controls['quantity'].dirty ||
-                    foodForm.controls['quantity'].touched)
+                    foodForm.controls['quantity'].touched ||
+                    showError)
                 "
               >
                 <div *ngIf="foodForm.controls['quantity'].errors.required">
@@ -271,3 +280,26 @@
     </div>
   </div>
 </div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark"
+      (click)="modal.close('Save click')"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

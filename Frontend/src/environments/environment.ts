@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000',
-  // apiUrl: 'https://0xlwtucwn2.execute-api.us-east-1.amazonaws.com/production',
+  apiUrl: 'https://protected-taiga-99101.herokuapp.com',
 };
 
 /*

@@ -11,6 +11,8 @@ import { LocationService } from '../shared/services/location.service';
 import { UomService } from '../shared/services/uom.service';
 import { Food } from '../shared/models/food';
 import { UOM } from '../shared/models/uom';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-food-feed-form',
@@ -26,6 +28,7 @@ export class FoodFeedFormComponent implements OnInit {
   food: Food[] = [];
   uom: UOM[];
   showToast: boolean = false;
+  showError = false;
   // uomType: any = 'Kg';
   constructor(
     private fb: FormBuilder,
@@ -33,7 +36,8 @@ export class FoodFeedFormComponent implements OnInit {
     private locationService: LocationService,
     private foodTypeService: FoodTypeService,
     private foodService: FoodService,
-    private uomService: UomService
+    private uomService: UomService,
+    private modalService: NgbModal
   ) {
     this.autoSuggestionCalls();
     this.uomService.getUom().subscribe((data) => {
@@ -156,6 +160,7 @@ export class FoodFeedFormComponent implements OnInit {
   submit() {
     if (this.foodForm.invalid) {
       console.log('food invalid');
+      this.showError = true;
     } else {
       var locTime = this.foodForm.controls['feedTime'].value;
       var date = new Date();
@@ -168,16 +173,19 @@ export class FoodFeedFormComponent implements OnInit {
         .addFoodFeed(this.foodForm.value)
         .subscribe((data) => {
           console.log(data);
-          this.showToast = true;
+          this.showError = false;
           this.autoSuggestionCalls();
           this.reset();
+          this.open();
         });
     }
   }
 
   reset() {
-    //this.showToast = true;
     this.initializeForm();
-    //  this.foodForm.controls['uomType'].setValue('KG');
+  }
+
+  open() {
+    const modalRef = this.modalService.open(ModalComponent);
   }
 }

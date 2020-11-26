@@ -9,6 +9,8 @@ import {
   NgbTimepickerModule,
   NgbTypeaheadModule,
   NgbToastModule,
+  NgbModal,
+  NgbModalModule,
 } from '@ng-bootstrap/ng-bootstrap';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -23,6 +25,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LocationService } from './shared/services/location.service';
 import { ListingComponent } from './listing/listing.component';
+import { ModalComponent } from './modal/modal.component';
 
 const icons = {
   AlertCircle,
@@ -36,6 +39,7 @@ const icons = {
     FooterComponent,
     FoodFeedFormComponent,
     ListingComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,7 @@ const icons = {
       },
     }),
     NgbToastModule,
+    NgbModalModule
   ],
   providers: [FoodFeedService, LocationService],
   bootstrap: [AppComponent],
